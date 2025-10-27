@@ -1,19 +1,9 @@
 const findTheOldest = function(people) {
-  let oldest = people[0];
-  let maxAge = 0;
-  
-  for (let i = 0; i < people.length; i++) {
-    const person = people[i];
-    const deathYear = person.yearOfDeath || new Date().getFullYear();
-    const age = deathYear - person.yearOfBirth;
-    
-    if (age > maxAge) {
-      maxAge = age;
-      oldest = person;
-    }
-  }
-  
-  return oldest;
+  return people.reduce((oldest, current) => {
+    const currentAge = (current.yearOfDeath || new Date().getFullYear()) - current.yearOfBirth;
+    const oldestAge = (oldest.yearOfDeath || new Date().getFullYear()) - oldest.yearOfBirth;
+    return currentAge > oldestAge ? current : oldest;
+  });
 };
 
 module.exports = findTheOldest;
